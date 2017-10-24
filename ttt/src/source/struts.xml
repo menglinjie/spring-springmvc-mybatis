@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+
+    <package name="default" extends="struts-default">
+        <action name="UserAction" class="com.mlj.action.UserAction" method="show">
+            <result name="success">
+                /index.jsp
+            </result>
+            <result name="error">
+                test.jsp
+            </result>
+        </action>
+        <action name="UserAction" class="com.mlj.action.UserAction" method="add">
+            <result name="success">
+                /rejisterSuccess.jsp
+            </result>
+        </action>
+
+        <action name="CityAction" class="com.mlj.action.CityAction" method="showF">
+
+        </action>
+        <action name="CityAction" class="com.mlj.action.CityAction" method="showS">
+
+        </action>
+
+        <action name="VerifyAction" class="com.mlj.action.VerifyAction">
+            <result name="success" type="stream">
+                <!-- inputName是一个OGNL表达式，该表达式可以从VS中获取相应的属性值 -->
+                <!-- StreamResult就是从InputStream对象中读取输入流 -->
+                <param name="inputName">inputStream</param>
+            </result>
+        </action>
+    </package>
+
+</struts>
