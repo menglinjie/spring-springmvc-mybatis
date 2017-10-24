@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.friendfinder.dao.PostDao">
+	<insert id="insertPost" useGeneratedKeys="true" keyProperty="id"
+		parameterType="Post">
+		insert into
+		Post(title,content,brief,type,creator_id,parent_id)
+		values(#{title},#{content},#{brief},#{type},#{user.id},#{article.id})
+	</insert>
+
+	<delete id="deletepost" parameterType="java.lang.Integer">
+		delete from Post
+		where
+		id=#{postId}
+	</delete>
+
+	<update id="updatePostOff" parameterType="java.lang.Integer">
+		update post set
+		state='off'
+		where id=#{postId}
+	</update>
+
+	<update id="updatepost" parameterType="Post">
+		update Post set
+		title=#{title},content=#{content},brief=#{brief}
+		where id=#{id}
+	</update>
+
+	<select id="selectpostBypostId" parameterType="java.lang.Integer"
+		resultMap="postMap">
+		select post.*,post.write_time as writeTime,post.count_view
+		as countView,post.count_forward as countForward,
+		post.creator_id as
+		creatorId,post.parent_id as parentId
+		from Post
+		where id=#{postId} and
+		state= 'on'
+	</select>
+	<resultMap type="Post" id="postMap">
+		<association property="user" column="creator_id"
+			select="com.friendfinder.dao.UserDao.findById"></association>
+		<collection property="comments" column="parent_id" ofType="Post"
+			select="selectpostBypostId"></collection>
+	</resultMap>
+
+	<update id="updateView" parameterType="java.lang.Integer">
+		update Post set
+		count_view=count_view+1
+		where
+		id=#{postId}
+	</update>
+
+	<update id="updateForward" parameterType="java.lang.Integer">
+		update Post set
+		count_forward=count_forward+1
+		where
+		id=#{PostId}
+	</update>
+	<select id="countPost" resultType="java.lang.Integer">
+		select count(*) from Post
+		where
+		type=#{type} and state= 'on' and parent_id=#{parentId}
+		group by
+		type
+	</select>
+	<select id="countView" resultType="java.lang.Integer"
+		parameterType="java.lang.Integer">
+		select count_view from
+		Post where type='article' and
+		id=#{postId}
+	</select>
+	<select id="countForward" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select count_forward
+		from
+		Post where id=#{PostId}
+	</select>
+
+	<select id="selectComment" parameterType="java.lang.Integer"
+		resultMap="postMap">
+		SELECT
+		post.*,post.write_time as writeTime,
+		post.creator_id as
+		creatorId,post.parent_id as parentId
+		FROM
+		post
+		WHERE
+		parent_id=#{parentId} AND type='comment'
+		and
+		post.state='on'
+	</select>
+	
+	
+
+</mapper>

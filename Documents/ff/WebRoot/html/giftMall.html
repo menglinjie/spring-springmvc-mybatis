@@ -1,0 +1,160 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>礼物商城 -- 缘来在此交友网</title>
+		<link type="text/css" rel="stylesheet" href="../css/stylereset.css" />
+		<link rel="stylesheet" href="../css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<link rel="stylesheet" href="../css/media.css" />
+		<style type="text/css">
+			/*此页面特有样式*/
+			
+			.content article {
+				padding: 0;
+				background: #fff;
+				padding-bottom: 30px;
+			}
+		</style>
+	</head>
+
+	<body style="overflow-x: hidden;">
+		<!--Start main-->
+		<div class="main clearfix">
+			<!--Start top-->
+			<header class="top clearfix">
+				<!--Start top_logo-->
+				<div class="top_logo">
+					<a href="../index.html" title="缘来在此交友网">缘来在此交友网</a>
+				</div>
+				<!--End top_logo-->
+
+				<!--Start top_main-->
+				<div class="top_main clearfix">
+					<!--Start top_main_nav-->
+					<nav class="top_main_nav clearfix">
+						<label class="top_main_nav_icon hidden-lg pull-right">
+							<span class="glyphicon glyphicon-menu-hamburger"></span>
+						</label>
+						<ul class="clearfix">
+							<li title="会员信息">
+								<a href="queryPeople.html">会员信息</a>
+							</li>
+							<li title="礼物商城">
+								<a href="giftMall.html">礼物商城</a>
+							</li>
+							<li title="博客系统">
+								<a href="personBlog.html">博客系统</a>
+							</li>
+							<li title="个人主页">
+								<a href="personInfo.jsp">个人主页</a>
+							</li>
+						</ul>
+					</nav>
+					<!--End top_main_nav-->
+				</div>
+				<!--End top_main-->
+			</header>
+			<!--End top-->
+
+			<!--Start person_info_container-->
+			<article class="person_info_container container-fluid" style="padding: 0;z-index: 1;">
+				<!--Start person_info_left-->
+				<aside class="person_info_left col-xs-12 col-sm-12 col-md-4 col-lg-4">
+					<div class="container-fluid box_shadow" style="background: #fff;padding: 15px;">
+						<div class="content_main_header">
+							<h3>个人购物车</h3>
+						</div>
+
+						<!-- Start gift_car -->
+						<div class="gift_car clearfix" id="gift_car_main">
+							
+							
+							
+						</div>
+						<!-- End gift_car -->
+						
+						<div class="container-fluid">
+							<button type="button" class="btn btn-block col-lg-6" disabled id="car_price">您的购物车空空如也~</button>
+						</div>
+						
+						<!-- content_form_button_group -->
+						<div class="container-fluid pull-right content_form_button_group" style="line-height: 60px;">
+							<input type="button" value="全部购买" class="btn btn-success btn-xs" id="car_buy" disabled onclick="car_buy_all()" />
+							<input type="reset" value="清空购物车" class="btn btn-danger btn-sm" id="car_remove" disabled onclick="car_remove_all()" />
+						</div>
+						<!-- End content_form_button_group -->
+					</div>
+				</aside>
+				<!--End person_info_left-->
+
+				<!--Start person_info_right-->
+				<section class="person_info_right clearfix col-xs-12 col-sm-12 col-md-8 col-lg-8">
+					<!--Start content-->
+					<section class="content person_info_right_1 container-fluid clearfix" style="height: auto;">
+						<div class="title col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<label>
+								<span>礼物商城</span>
+							</label>
+						</div>
+
+						<!-- Start select_group(礼物筛选下拉框组) -->
+						<div class="select_group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+								<label class="select_title">购买方式:</label>
+								<div class="select col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<span id="sel_pirce_value">人民币</span>
+									<ul class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										<li onclick="sel_price(this)">积分</li>
+										<li onclick="sel_price(this)">人民币</li>
+									</ul>
+									<span class="glyphicon glyphicon-menu-down select_icon"></span>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+								<label class="select_title">商品筛选条件:</label>
+								<div class="select col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<span id="sel_type_value">全部</span>
+									<ul class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										<li onclick="sel_type(this)">全部</li>
+										<li onclick="sel_type(this)">最热</li>
+										<li onclick="sel_type(this)">最新</li>
+										<li onclick="sel_type(this)">最贵</li>
+										<li onclick="sel_type(this)">最便宜</li>
+									</ul>
+									<span class="glyphicon glyphicon-menu-down select_icon"></span>
+								</div>
+							</div>
+						</div>
+						<!-- End select_group(礼物筛选下拉框组) -->
+
+						<!-- Start gift_list(商品列表) -->
+						<div class="gift_list col-xs-12 col-sm-12 col-md-12 col-lg-12" id="GiftMain">
+
+
+
+						</div>
+						<!-- End gift_list(商品列表) -->
+					</section>
+					<!-- End content -->
+				</section>
+				<!--End person_info_right-->
+			</article>
+			<!--End person_info_container-->
+
+		</div>
+		<!--End main-->
+
+		<!--Start goToBtn-->
+		<div id="goTopBtn" title="回到顶部" style="display: none; left: 1313px;">&and;</div>
+		<!--End goToBtn-->
+	</body>
+
+	<script type="text/javascript" src="../js/jquery-3.0.0.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/tree.js"></script>
+	<script type="text/javascript" src="../js/public.js"></script>
+	<script type="text/javascript" src="../js/giftMail.js"></script>
+</html>

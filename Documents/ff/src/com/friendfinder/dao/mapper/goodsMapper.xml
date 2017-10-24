@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	namespace：必须与对应的接口全类名一致
+	id:必须与对应接口的某个对应的方法名一致
+	
+ -->
+<mapper namespace="com.friendfinder.dao.GoodsDao">
+
+	<!-- mybsits_config中配置类别名,也可直接配置resultType为类路径 -->
+	<insert id="insertGoods" parameterType="com.friendfinder.model.Goods" >
+		<![CDATA[
+		insert into goods(goods_name,goods_charm,type,price0,price1,discount0,discount1,message,sales,img)
+		values(
+		#{name},
+		#{charm},
+		#{type},
+		#{price_rmb},
+		#{price_point},
+		#{discount_rmb},
+		#{discount_point},
+		#{message},
+		#{sales},
+		#{img});
+
+		]]>
+	</insert>
+
+	<update id="deleteGoods" parameterType="com.friendfinder.model.Goods">
+		update goods
+		set state= 0
+		where id = #{id}
+	</update>
+	
+	
+	  
+	<select id="selectGoodsByName" resultMap="Goods">
+		select id,state,goods_name,goods_charm,type,price0,price1,discount0,discount1,message,sales,img
+		from goods
+		where  goods_name = #{name}
+	</select>
+	<select id="selectGoodsById" resultMap="Goods">
+		select id,state,goods_name,goods_charm,type,price0,price1,discount0,discount1,message,sales,img
+		from goods
+		where  id = #{id} 
+	</select>
+	
+	<select id="selectAllGoods"  resultMap="Goods">
+		select id,state,goods_name,goods_charm,type,price0,price1,discount0,discount1,message,sales,img
+		from goods
+		WHERE  state = 1
+	</select>
+	<resultMap id="Goods" type="com.friendfinder.model.Goods">
+		<result property="id" column="id"/>
+		<result property="state" column="state"></result>
+		<result property="name" column="goods_name"/>
+		<result property="charm" column="goods_charm"/>
+		<result property="type" column="type"/>
+		<result property="price_rmb" column="price0"/>
+		<result property="price_point" column="price1"/>
+		<result property="discount_rmb" column="discount0"/>
+		<result property="discount_point" column="discount1"/>
+		<result property="message" column="message"/>
+		<result property="sales" column="sales"/>
+		<result property="img" column="img"/>
+	</resultMap>
+	
+	
+	
+	
+	
+	
+</mapper>

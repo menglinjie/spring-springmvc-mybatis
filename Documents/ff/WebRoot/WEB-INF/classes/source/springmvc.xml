@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/util 
+		http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+	<!-- 自动扫面包，将带Spring注解的包加入IOC容器 -->
+	<context:component-scan base-package="com.friendfinder.controller" />
+
+	<!-- 资源文件映射 -->	
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/img/" mapping="/img/**"/>
+	<mvc:resources location="/fonts/" mapping="/fonts/**"/>
+	<mvc:resources location="/" mapping="/**"/>
+	
+	<!--拦截器 -->
+	<mvc:interceptors>
+		<!--多个拦截器,顺序执行 -->	
+		
+		<!-- 对普通用户进行拦截器处理 -->
+		<mvc:interceptor>
+			<!-- 配置需要拦截的路径，如果不写或/**代表拦截所有Controller -->
+			<mvc:mapping path="/**"/>
+			<!-- 配置不需要拦截的路径 -->
+			<mvc:exclude-mapping path="/user/mobileCycle.action" />
+			<mvc:exclude-mapping path="/user/cycleImg.action" />
+			<mvc:exclude-mapping path="/user/isValid.action" />
+			<mvc:exclude-mapping path="/user/addUser.action" />
+			<mvc:exclude-mapping path="/post/getPost.action" />
+			<mvc:exclude-mapping path="/manage/**" />
+			<bean class="com.friendfinder.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+		
+		<!-- 对普通用户进行拦截器处理 -->
+		<mvc:interceptor>
+			<!-- 配置需要拦截的路径，如果不写或/**代表拦截所有Controller -->
+			<mvc:mapping path="/manage/**"/>
+			<!-- 配置不需要拦截的路径 -->
+			<mvc:exclude-mapping path="/manage/isLogin.action" />
+			<mvc:exclude-mapping path="/manage/selectAllGoods.action" />
+			<bean class="com.friendfinder.interceptor.ManageInterceptor"></bean>
+		</mvc:interceptor>
+			
+	</mvc:interceptors>
+	
+
+	<!-- JSON -->
+	<util:constant id="serializerFeature"
+		static-field="com.alibaba.fastjson.serializer.SerializerFeature.DisableCircularReferenceDetect" />
+
+	<bean id="fastJsonHttpMessageConverter"
+		class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+		<property name="features" ref="serializerFeature"></property>
+	</bean>
+
+	<mvc:annotation-driven>
+		<!--conversion-service="conversionService" -->
+		<!-- 配置JSON转换器 -->
+		<mvc:message-converters>
+			<ref bean="fastJsonHttpMessageConverter" />
+		</mvc:message-converters>
+		<mvc:async-support default-timeout="300000" />
+	</mvc:annotation-driven>
+
+
+	<!-- json 化异常 -->
+	<bean id="annotationMethodHandlerExceptionResolver"
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver">
+		<property name="order" value="0" />
+	</bean>
+	
+	<!-- 配置全局异常处理器 -->
+	<bean id="handlerExceptionResolver" class="com.friendfinder.exception.ExtensionExceptionResolver" />
+
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1" />
+		<property name="defaultViews">
+			<list>
+				<bean class="com.alibaba.fastjson.support.spring.FastJsonJsonView" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 配置视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 配置MultipartResolver 用于文件上传 使用spring的CommosMultipartResolver -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		
+		<property name="maxUploadSize">
+			<value>6666666</value>
+		</property>
+		
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+	</bean>
+
+</beans>

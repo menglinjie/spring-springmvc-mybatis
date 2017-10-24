@@ -1,0 +1,27 @@
+insert into
+		article(a_title,a_content,a_writetime,a_accessstate,a_parentid,a_type,a_accountforward,a_accountview,a_brief,a_p_id,a_u_did)
+		values('test','lalalalalal',NULL,'私有',NULL,'生活',32,40,'呼呼呼呼',NULL,NULL);
+
+delete from article where
+		a_id=1
+
+update article set
+		a_title='第一天',a_content='好难受',a_writetime=NULL,a_accessstate='私人',a_type='感情',a_accountforward=1,a_accountview=5,a_brief='就是难受'
+		
+select article.* from article,`user`,article_user where
+		article.a_id=article_user.au_aid and article_user.au_uid=`user`.u_id
+		and
+		`user`.u_id=1
+		
+select article.* from article where a_title='第一天'
+
+select count(a_title) from
+		article
+		
+update article set a_accountview=a_accountview+1 where a_title='第一天'
+		
+select count(*) from article where a_type='评论' group BY a_type
+
+select a_accountview from article where a_type='文章'and a_title='第一天'
+
+insert into article_user(au_uid,au_aid) values(1001,2)

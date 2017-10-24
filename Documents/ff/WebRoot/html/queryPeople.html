@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>会员信息 -- 缘来在此交友网</title>
+		<link type="text/css" rel="stylesheet" href="../css/stylereset.css" />
+		<link rel="stylesheet" href="../css/bootstrap.css" />
+		<link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css" />
+		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="../css/index.css" />
+		<link rel="stylesheet" href="../css/media.css" />
+	</head>
+
+	<body style="overflow-x: hidden; overflow-y: auto;">
+		<!--Start top-->
+		<header class="top clearfix">
+			<!--Start top_logo-->
+			<div class="top_logo">
+				<a href="../index.html" title="缘来在此交友网">缘来在此交友网</a>
+			</div>
+			<!--End top_logo-->
+
+			<!--Start top_main-->
+			<div class="top_main clearfix">
+				<!--Start top_main_nav-->
+				<nav class="top_main_nav clearfix">
+					<label class="top_main_nav_icon hidden-lg pull-right">
+						<span class="glyphicon glyphicon-menu-hamburger"></span>
+					</label>
+					<ul class="clearfix">
+						<li title="会员信息">
+							<a href="queryPeople.html">会员信息</a>
+						</li>
+						<li title="礼物商城">
+							<a href="giftMall.html">礼物商城</a>
+						</li>
+						<li title="博客系统">
+							<a href="personBlog.html">博客系统</a>
+						</li>
+						<li title="个人主页">
+							<a href="personInfo.jsp">个人主页</a>
+						</li>
+					</ul>
+				</nav>
+				<!--End top_main_nav-->
+			</div>
+			<!--End top_main-->
+		</header>
+		<!--End top-->
+
+		<!-- Start data_outer_container -->
+		<article id="app" class="data_outer_container container-fluid clearfix" style="padding: 15px; z-index: 1;">
+			<!-- Start data_inner_container -->
+			<article class="data_inner_container container-fluid clearfix" style="z-index: 1; background: #fff;">
+				<!-- Start content_main_header -->
+				<div class="text-center">
+					<h2 style="color:#00C1DE">会员信息</h2>
+				</div>
+				<!-- End content_main_header -->
+
+				<!-- Start select_group(礼物筛选下拉框组) -->
+				<div class="select_group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+						<label class="select_title">热度查询:</label>
+						<div class="select col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<span>{{ text1 }}</span>
+							<ul class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<li v-for="(o, index) in list1" @click="tempMethod1(i, index, o.text)" >{{ o.text }}</li>
+							</ul>
+							<span class="glyphicon glyphicon-menu-down select_icon"></span>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+						<label class="select_title">性别查询:</label>
+						<div class="select col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<span>{{ text2 }}</span>
+							<ul class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<li v-for="(o, index) in list2" @click="tempMethod2(i, index, o.text)" >{{ o.text }}</li>
+							</ul>
+							<span class="glyphicon glyphicon-menu-down select_icon"></span>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+						<label class="select_title">年龄查询:</label>
+						<div class="select col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<span>{{ text3 }}</span>
+							<ul class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<li v-for="(o, index) in list3" @click="tempMethod3(i, index, o.text)" >{{ o.text }}</li>
+							</ul>
+							<span class="glyphicon glyphicon-menu-down select_icon"></span>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+						<label class="select_title">收入查询:</label>
+						<div class="select col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<span>{{ text4 }}</span>
+							<ul class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<li v-for="(o, index) in list4" @click="tempMethod4(i, index, o.text)" >{{ o.text }}</li>
+							</ul>
+							<span class="glyphicon glyphicon-menu-down select_icon"></span>
+						</div>
+					</div>
+
+				</div>
+				<!-- End select_group(礼物筛选下拉框组) -->
+
+				<!-- Start gift_list(商品列表) -->
+				<div class="gift_list person_list col-xs-12 col-sm-12 col-md-12 col-lg-12" v-for>					
+					<div class="gift person col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="(o, index) in data">
+						<div class="clearfix">
+							<div class="person_logo col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<a :href="'personInfo2.html?id=' + o.id" target="_blank" title="查看用户信息">
+									<img :src="'http://139.199.16.239:8080/demo/image/' + o.picture" class="img-responsive" />
+								</a>
+							</div>
+							<div class="caption col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="clearfix person_name">
+									<h4 class="pull-left" :title="o.nickname">{{ o.nickname }}(魅力值:{{ o.charm ? o.charm : 0 }})</h4>
+									<div class="pull-right">
+										<label title="礼物" @click="giveGift(o.id)"><span class="glyphicon glyphicon-gift"></span></label>
+										<a id="iconBlog" title="博客" :href="'personBlog.html?id=' + o.id" ><span class="glyphicon glyphicon-bookmark"></span></a>
+										<label  :title="o.flag == 1 ? '已关注' : '关注'" @click="changeIcon(index, o.id, o.flag)" :style="{'color' : o.flag == 1 ? '#00AAEE' : '#333'}"><span class="glyphicon glyphicon-heart-empty"></span></label>
+									</div>
+								</div>
+
+								<p class="text_overflow1 person_info">
+									<span>个人简介:</span><span :title="o.introduce">{{ o.introduce }}</span>
+								</p>
+								<div class="person_map" :title="o.address">
+									<label class="pull-right"><span class="glyphicon glyphicon-map-marker"></span>{{ o.address }}</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+
+				</div>
+				<!-- End gift_list(商品列表) -->
+
+				<!-- Start split_page_nav -->
+				<footer class="col-xs-12 col-sm-12 col-md-12 col-lg-12" v-show="pageShow">
+					<div class="text-center split_page_nav hidden-xs hidden-sm">
+						<ul>
+							<li v-for="index in pages" @click="requestData(index)" v-bind:class="{'active': i == index}">
+								<a>{{ index }}</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="hidden-lg hidden-md">
+						<ul class="pager">
+							<li class="previous disabled">
+								<a @click="requestData(i)"><span>&larr;</span> 上一页</a>
+							</li>
+							<li class="next">
+								<a @click="requestData(i+1)">下一页 <span>&rarr;</span></a>
+							</li>
+						</ul>
+					</div>
+				</footer>
+				<!-- End split_page_nav -->
+			</article>
+			<!-- End data_inner_container -->
+		</article>
+		<!-- End data_outer_container -->
+		
+		<div id="app2" v-show="tempFlag">
+			<div id="all"></div>
+			<div class="center2" >
+				<label class="common1 lab11"></label>
+				<label class="common1 lab22"></label>
+				<label class="common1 lab33"></label>
+				<label class="common1 lab44"></label>
+			</div>
+		</div>
+		
+		<!-- 赠送礼物的模板 -->
+		<div id="app3" v-show="tempFlag1">
+			<div id="all"></div>
+			<div class="give_gift">
+				<div class="container-fluid clearfix">
+					<span style="color: #000;font-size: 30px;cursor: pointer;" title="关闭" class="pull-right" @click="closeWindow()">&times;</span>
+					<div class="text-center">
+						<h3 style="color: #04BAD7;">赠送礼物</h3>	
+					</div>
+				</div>
+				
+				<!-- Start gift_car -->
+				<div class="gift_car clearfix" >
+					<div class="gift col-xs-12 col-sm-12 col-md-12 col-lg-12" v-for="(o, index) in giftData">		
+						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+							<img :src="o.imgPath" class="img-responsive" />
+						</div>
+						<div class="clearfix col-xs-8 col-sm-8 col-md-8 col-lg-8">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<h4 class="pull-left">{{ o.goods.name }}</h4>
+								<h4 class="pull-right">商品数量:{{ o.goodsOwn.num }}个</h4>	
+							</div>
+							
+							<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 15px;">
+								<div class="input-group ">
+									<label class="input-group-addon">赠送个数:</label>
+									<input type="number" v-model.lazy="nums[index]" class="form-control">
+								</div>
+							</div>
+							
+						</div>
+					</div>
+	
+				</div>
+				<!-- End gift_car -->
+				
+				<!-- content_form_button_group -->
+				<div class="container-fluid pull-right content_form_button_group" style="line-height: 60px;">
+					<a href="giftMall.html" class="btn btn-info">前往商城购买</a>
+					<input type="button" value="全部赠送" class="btn btn-success" @click="giveGift()" />	
+				</div>
+				<!-- End content_form_button_group -->
+			</div>
+		</div>
+		
+		<!--Start goToBtn-->
+		<div id="goTopBtn" title="回到顶部" style="display: none; left: 1313px;">&and;</div>
+		<!--End goToBtn-->
+	</body>
+
+	<script type="text/javascript" src="../js/jquery-3.0.0.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/tree.js"></script>
+	<script type="text/javascript" src="../js/public.js"></script>
+	<script type="text/javascript" src="../js/vue.js" ></script>
+	<script type="text/javascript" src="../js/vue-resource.js" ></script>
+	<script type="text/javascript">
+		<!--
+		(function(Vue) {
+		
+			// 加载动画显示
+			var temp = new Vue({
+				el: "#app2",
+				data: {
+					tempFlag: true
+				}
+			})
+			
+			// 设置请求JSON格式数据
+			Vue.http.options.emulateJSON = false;
+			//　赠送礼物弹窗
+			var temp1 = new Vue({
+				el: "#app3",
+				data: {
+					// 显示标志
+					tempFlag1: false,
+					// 礼物数据
+					giftData: [],
+					nums: [],
+					tempId: -1
+				},
+				created: function(){
+					this.requestData();
+				},
+				methods: {
+				 	// 关闭弹窗函数
+					closeWindow: function(){
+						this.tempFlag1 = false;
+					},
+					// 礼物赠送函数
+					giveGift: function(){
+						// 请求后台业务
+						var flag = confirm("您确定赠送这些礼物吗？");
+						if (flag) {
+							temp.tempFlag = true;
+							// 重新封装数据
+							for (var i = 0; i < this.giftData.length; i++) {
+								this.giftData[i].goodsOwn.num = this.nums[i];
+							}	
+							// VueResource插件封装多层JSON对象时出现很严重的Bug，现使用Ajax进行后台请求
+							$.ajax({
+						        type: "post",
+						        url: "../user/giveGift.action?giftList=" + this.giftData + "&targetId=" + this.tempId,
+						        data: JSON.stringify(this.giftData),
+						        dataType: "json",
+						        contentType: "application/json;charset=UTF-8",
+						        async: true,
+						        cache: true,
+						        success: function(data) {
+						        	if(data.message){
+						        		alert(data.message);
+						        		location.reload(); 
+						        	} 
+						        	temp.tempFlag = false;
+						        }
+						    });
+						    
+						    
+							// 然后自动关闭弹窗
+							this.closeWindow();
+							// 刷新数据
+							this.requestData();
+						}
+					},
+					requestData: function(){
+						// 进行后台数据请求，传递参数进行相关的业务处理
+						this.$http.post("../user/selectOrderGoods.action")
+						.then(function(resp){
+							this.giftData = resp.data;
+							// 初始化礼物个数数组
+							for(var i = 0; i < resp.data.length; i++){
+								this.nums[i] = 0;
+							}
+						}, function(resp){
+							alert("获取用户礼物列表失败，请稍后重试!");
+						})	
+					}
+				}
+			})
+			
+			// 监听数据的变化
+			temp1.$watch("nums", function(){
+				// 当数据出现小于0时，将值置为1
+				for (var i = 0; i < this.nums.length; i++){
+					if (this.nums[i] <= 0) {
+						this.nums[i] = 0;
+					} 
+				}
+			})
+			
+			// 主要后台数据加载器
+			new Vue({
+				el: "#app",
+				data: {
+					// 显示列表1
+					list1: [
+						{text:"全部"},
+						{text:"魅力值排行"},
+						{text:"最新注册"}
+					],
+					// 显示列表2
+					list2: [
+						{text:"全部"},
+						{text:"男"},
+						{text:"女"}
+					],
+					// 显示列表3
+					list3: [
+						{text:"全部"},
+						{text:"18-28岁"},
+						{text:"28-38岁"},
+						{text:"38-48岁"},
+						{text:"48岁以上"}
+					],
+					// 显示列表4
+					list4: [
+						{text:"全部"},
+						{text:"3000元以下"},
+						{text:"3000-5000元"},
+						{text:"5000-7000元"},
+						{text:"7000-9000元"},
+						{text:"9000元以上"}
+					],
+					attr1: 0, // 参数1
+					attr2: 0, // 参数2
+					attr3: 0, // 参数3
+					attr4: 0, // 参数4
+					text1: "全部",
+					text2: "全部",
+					text3: "全部",
+					text4: "全部",
+					data: [], // 会员信息数据
+					pages: 1, // 分页数据
+					i: 1, //分页选中标志
+					pageShow: false
+				},
+				created: function() {
+					// Vue初始化完成后执行的函数 --> 加载初始默认数据
+					this.$http.post("../user/test.action?page=1&attr1=0&attr2=0&attr3=0&attr4=0")
+						.then(function(resp){
+							this.data = resp.data;
+						}, function(resp){
+							alert("加载会员信息失败，请稍后重试!");
+						})
+					// 加载初始分页数据
+					this.$http.post("../user/test1.action?attr1=0&attr2=0&attr3=0&attr4=0")
+						.then(function(resp){
+							this.pages = resp.data;
+							// 控制分页工具的显隐
+							if (this.pages > 1) {
+								this.pageShow = true;
+							} else {
+								this.pageShow = false;
+							}
+						}, function(resp){
+							alert("加载分页数据失败，请稍后重试!");
+						})
+						
+					// 延迟加载函数
+					setTimeout(function(){
+				        temp.tempFlag = false;
+				    }, 2500)
+				},
+				methods: {
+					tempMethod1: function(page, index, text){
+						// 改变编号
+						this.attr1 = index;
+						this.text1 = text;
+						// 请求后台数据
+						this.requestData(page);
+					},
+					tempMethod2: function(page, index, text){
+						// 改变编号
+						this.attr2 = index;
+						this.text2 = text;
+						// 请求后台数据
+						this.requestData(page);
+					},
+					tempMethod3: function(page, index, text){
+						// 改变编号
+						this.attr3 = index;
+						this.text3 = text;
+						// 请求后台数据
+						this.requestData(page);
+					},
+					tempMethod4: function(page, index, text){
+						// 改变编号
+						this.attr4 = index;
+						this.text4 = text;
+						// 请求后台数据
+						this.requestData(page);
+					},
+					// 请求指定日期的巡检数据
+					requestData: function(page) {
+						temp.tempFlag = true;
+						// 设置分页编号选中样式
+						this.i = page;
+						
+						// 请求后台数据
+						this.$http({
+							method: "POST",
+							url: "../user/test.action",
+							params: {"page" : page, "attr1" : this.attr1, "attr2" : this.attr2, "attr3" : this.attr3, "attr4" : this.attr4}
+						}).then((resp) => {
+							this.data = resp.data
+						}).catch((resp) => {
+							alert("加载会员信息失败，请稍后重试!!");
+						})
+						
+						// Vue初始化完成后执行的函数 --> 加载关于分页的数据
+						this.$http({
+							method: "POST",
+							url: "../user/test1.action",
+							params: {"attr1" : this.attr1, "attr2" : this.attr2, "attr3" : this.attr3, "attr4" : this.attr4}
+						}).then((resp) => {
+							// 获取分页工具栏
+							this.pages = resp.data;
+							// 控制分页工具的显隐
+							if (this.pages > 1) {
+								this.pageShow = true;
+							} else {
+								this.pageShow = false;
+							}
+						}).catch((resp) => {
+							alert("加载分页数据失败，请稍后重试!!");
+						})
+						
+						// 延迟加载函数
+						setTimeout(function(){
+					        temp.tempFlag = false;
+					    }, 2000)
+					},
+					giveGift: function(id){ // 加载用户库存礼物
+						// 传递用户id参数
+						temp1.tempId = id;
+					
+						// 显示弹窗
+						temp1.tempFlag1 = true;
+					},
+					changeIcon: function(index, id, flag){ // 加关注函数
+						if (flag == 1) {// 已关注
+							// 请求后台Controller			
+							this.$http({
+								method: "POST",
+								url: "../user/delFans.action",
+								params: {"id" : id}
+							}).then((resp) => {
+								alert(resp.data.success);
+								this.data[index].flag = 0;
+							}).catch((resp) => {
+								alert(resp.data.error);
+							})
+							
+						} else if (flag == 0) { // 未关注
+							// 请求后台Controller	
+							this.$http({
+								method: "POST",
+								url: "../user/addFans.action",
+								params: {"id" : id}
+							}).then((resp) => {
+								alert(resp.data.success);
+								this.data[index].flag = 1;
+							}).catch((resp) => {
+								alert(resp.data.error);
+							})	
+						} 
+					}
+				}
+			})		
+		})(Vue)
+		//-->
+	</script>
+	
+</html>

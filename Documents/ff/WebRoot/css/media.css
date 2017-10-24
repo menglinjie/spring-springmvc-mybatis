@@ -1,0 +1,145 @@
+/*媒体查询*/
+/*屏幕宽度小于556px*/
+@media (max-width: 556px) {
+  .top_main_nav {
+    width: auto;
+  }
+}
+/*屏幕宽度小于556px*/
+/*屏幕宽度大于556px*/
+/*屏幕宽度大于556px*/
+/*屏幕宽度大于1200px*/
+@media (min-width: 1200px) {
+  .index_top {
+    /*对于大屏幕来说，将高度置为浏览器设备的高度*/
+    height: 100vh;
+    margin-bottom: 0;
+  }
+  .top_logo {
+    border-right: 1px solid #2A2F32;
+  }
+  .top_main_nav_icon {
+    display: none;
+  }
+  /*只能使用top_main，因为index_top_main会可能被移除*/
+  .top_main_1 {
+    width: 50%;
+  }
+  .index_top_section {
+    display: block;
+    /*以下代码，实现未知高度元素的垂直居中*/
+    position: absolute;
+    top: 50%;
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  .index_footer_bottom {
+    font-size: 18px;
+    line-height: 66.66666667px;
+  }
+  .sub_content h3 {
+    font-size: 25px;
+    margin-top: 0;
+  }
+}
+/*屏幕宽度大于1200px*/
+/*屏幕宽度小于1200px*/
+@media (max-width: 1200px) {
+  .index_top {
+    height: auto;
+    /*小屏幕出现60px非白色透明*/
+    padding-bottom: 60px;
+  }
+  .top_logo {
+    border: none;
+  }
+  .top_main_nav_icon {
+    display: block;
+  }
+  /*只能使用top_main，因为index_top_main会可能被移除*/
+  .top_main_1 {
+    width: 30%;
+  }
+  .top_logo_1 {
+    width: 50%;
+  }
+  .top_main_nav ul {
+    display: none;
+    width: 100px;
+    height: auto;
+    /*更改层级，但要注意父级元素层级设置*/
+    z-index: 999;
+    margin-top: 60px;
+    background: #373D41;
+    /*与上标签对齐*/
+    margin-right: -100px;
+  }
+  .top_main_nav ul li {
+    display: block;
+  }
+  .index_top_section {
+    float: left;
+    /*对于略小的屏幕来说，重置样式代码*/
+    position: relative;
+    top: 0;
+    -moz-transform: none;
+    -webkit-transform: none;
+    transform: none;
+  }
+  .index_footer_bottom {
+    font-size: 13px;
+    line-height: 33.33333333px;
+  }
+  .index_content_section h3 {
+    font-size: 18px;
+  }
+  .sub_content h3 {
+    /*小屏幕时，增加标题上外边距*/
+    margin-top: 30px;
+  }
+}
+/*屏幕宽度小于1200px*/
+/*屏幕宽度小于995px*/
+@media (max-width: 995px) {
+  .index_footer_top ul > li {
+    height: 33.33333333px;
+    line-height: 33.33333333px;
+  }
+  .found_password_nav {
+    display: none;
+  }
+}
+/*屏幕宽度小于995px*/
+/*屏幕宽度大于995px*/
+@media (min-width: 995px) {
+  .index_footer_top ul > li {
+    height: 133.33333333px;
+    line-height: 133.33333333px;
+  }
+  .found_password_nav {
+    display: block;
+  }
+}
+/*屏幕宽度大于995px*/
+/*屏幕宽度小于970px*/
+@media (max-width: 970px) {
+  .person_info_left {
+    padding: 20px;
+  }
+  .person_info_right {
+    padding: 0 20px 20px 20px;
+  }
+}
+/*屏幕宽度小于970px*/
+/*屏幕宽度大于970px*/
+@media (min-width: 970px) {
+  .person_info_left {
+    padding: 20px 10px 20px 20px;
+  }
+  .person_info_right {
+    padding: 20px 20px 20px 10px;
+  }
+}
+/*屏幕宽度大于970px*/
+/*媒体查询*/

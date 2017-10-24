@@ -1,0 +1,107 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>博客系统 -- 缘来在此交友网</title>
+		<link type="text/css" rel="stylesheet" href="../css/stylereset.css" />
+		<link rel="stylesheet" href="../css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<link rel="stylesheet" href="../css/media.css" />
+		<link rel="stylesheet" href="../css/wangEditor.min.css" />
+	</head>
+
+	<body>
+		<!--Start main-->
+		<div class="main clearfix">
+			<!--Start top-->
+			<header class="top clearfix">
+				<!--Start top_logo-->
+				<div class="top_logo">
+					<a href="../index.html" title="缘来在此交友网">缘来在此交友网</a>
+				</div>
+				<!--End top_logo-->
+
+				<!--Start top_main-->
+				<div class="top_main clearfix">
+					<!--Start top_main_nav-->
+					<nav class="top_main_nav clearfix">
+						<label class="top_main_nav_icon hidden-lg pull-right">
+						<span class="glyphicon glyphicon-menu-hamburger"></span>
+					</label>
+						<ul class="clearfix">
+							<li title="会员信息">
+								<a href="queryPeople.html">会员信息</a>
+							</li>
+							<li title="礼物商城">
+								<a href="giftMall.html">礼物商城</a>
+							</li>
+							<li title="博客系统">
+								<a href="personBlog.html">博客系统</a>
+							</li>
+							<li title="个人主页">
+								<a href="personInfo.jsp">个人主页</a>
+							</li>
+						</ul>
+					</nav>
+					<!--End top_main_nav-->
+				</div>
+				<!--End top_main-->
+			</header>
+			<!--End top-->
+
+			<!--Start content-->
+			<article class="content">
+				<!--Start overflow_box_1-->
+				<div class="overflow_box_1">
+					<div class="container-fluid content_main_box">
+						<form action="" method="post">
+							<div class="content_main_header clearfix">
+								<h3>写新文章</h3>
+								<div class="pull-right content_form_button_group">
+									<input type="button" value="发表新文章" class="btn btn-success"/ id="addArticle">
+								</div>
+							</div>
+							
+							<div class="form-group form-group-lg text-center clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<div class="input-group">
+									<label class="input-group-addon" for="title">标题:</label>
+									<input class="form-control" id="ArticleTitle" name="title" placeholder="请填写标题信息" />
+								</div>
+							</div>
+	
+							<div class="container-fluid col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<textarea id="editor-trigger" name="content" style="display: none; height: 430px;"> <p id="ArticleContent">请输入内容...</p></textarea>					        
+							</div>
+						</form>
+					</div>
+				</div>
+				<!--End overflow_box_1-->
+			</article>
+			<!--End content-->
+		</div>
+		<!--End main-->
+	</body>
+
+	<script type="text/javascript" src="../js/jquery-3.0.0.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/public.js"></script>
+	<script type="text/javascript" src="../js/wangEditor.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+	<script type="text/javascript">
+		// 阻止输出log
+        wangEditor.config.printLog = false;
+
+        var editor = new wangEditor('editor-trigger');
+        
+        // 上传图片
+        editor.config.uploadImgUrl = '/upload';
+
+        editor.create();
+        
+        alert(editor.$txt.html());
+	</script>
+	<script type="text/javascript" src="../js/personBlog.js"></script>
+	<script type="text/javascript" src="../js/tree.js"></script>
+</html>

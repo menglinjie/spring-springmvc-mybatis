@@ -1,0 +1,75 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>顶部 -- 智能巡检系统</title>
+		<link type="text/css" rel="stylesheet" href="../css/stylereset.css" />
+		<link rel="stylesheet" href="../css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<script type="text/javascript" src="../js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap.js"></script>
+		<script type="text/javascript" src="../js/tree.js"></script>
+
+	</head>
+
+	<body>
+		<!--Start top-->
+		<header class="top clearfix">
+			<!--Start top_logo-->
+			<div class="top_logo">
+				<a href="../index.html" title="智能巡检系统控制台">智能巡检系统控制台</a>
+			</div>
+			<!--End top_logo-->
+
+			<!--Start top_main-->
+			<div class="top_main clearfix">
+
+				<!--Start top_main_map-->
+				<div class="top_main_map hidden-xs hidden-sm hidden-md">
+					<label>您的当前位置是 : </label>
+					<span class="top_main_map_text"><a href="#">数据修改</a>/<a href="#">子菜单一</a>/<a href="#">子菜单二</a></span>
+				</div>
+				<!--End top_main_top-->
+
+				<!--Start top_main_search-->
+				<div class="top_main_search hidden-xs hidden-sm hidden-md">
+					<label class="search_position">
+						<form action="" id="search_form">
+							<input type="text" id="search_text" placeholder="站内搜索" autocomplete="off" />
+							<input type="submit" id="search_submit" hidden />
+						</form>	
+						<label class="search_svg" for="search_submit"></label>
+					</label>
+				</div>
+				<!--End top_main_search-->
+
+				<!--Start top_main_nav-->
+				<nav class="top_main_nav clearfix">
+					<label class="top_main_nav_icon hidden-lg pull-right">
+						<span class="glyphicon glyphicon-menu-hamburger"></span>
+					</label>
+					<ul class="clearfix">
+						<li title="会员信息">
+							<a href="queryData.html">会员信息</a>
+						</li>
+						<li title="礼物商城">
+							<a href="main.html">礼物商城</a>
+						</li>
+						<li title="在线聊天">
+							<a href="#">在线聊天</a>
+						</li>
+						<li title="测试用户">
+							<a href="personInfo.html">测试用户</a>
+						</li>
+					</ul>
+				</nav>
+				<!--End top_main_nav-->
+			</div>
+			<!--End top_main-->
+		</header>
+		<!--End top-->
+	</body>
+
+</html>

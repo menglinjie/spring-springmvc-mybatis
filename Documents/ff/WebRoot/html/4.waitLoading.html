@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>等待加载测试</title>
+		<link rel="stylesheet" href="../css/style.css" />
+		<script type="text/javascript" src="../js/jquery-3.0.0.min.js" ></script>
+		<script type="text/javascript">
+			function waitLoading(){
+				// 添加动画样式
+				$("<div>").attr("id", "all").appendTo($("body"));
+				var center = $("<div>").addClass("center1").appendTo($("body"));
+				$("<label>").addClass("common lab1").appendTo(center);
+				$("<label>").addClass("common lab2").appendTo(center);
+				$("<label>").addClass("common lab3").appendTo(center);
+				$("<label>").addClass("common lab4").appendTo(center);
+				
+				// 设置消失函数
+				setTimeout("cleanWaitLoading()", 3000);
+			}
+			
+			function cleanWaitLoading(){
+				// 消失动画
+				$(".center").animate({opacity:"0"});
+				$(".center").hide("fast");	
+				
+				// 延时清除HTML内容
+				setTimeout(function(){
+					$("#all").remove();	
+					$(".center").remove();
+				}, 500)		
+			}
+		</script>
+	</head>
+	<body>
+		<input type="button" value="加载动画" onclick="waitLoading()" />
+	</body>
+</html>

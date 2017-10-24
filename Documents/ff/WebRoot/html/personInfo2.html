@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>用户信息 -- 缘来在此交友网</title>
+		<link type="text/css" rel="stylesheet" href="../css/stylereset.css" />
+		<link rel="stylesheet" href="../css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<link rel="stylesheet" href="../css/media.css" />
+		<link rel="stylesheet" href="../css/alert.css" />
+	</head>
+
+	<body style="overflow-x: hidden; overflow-y: auto;">
+		<!--Start top-->
+		<header class="top clearfix">
+			<!--Start top_logo-->
+			<div class="top_logo">
+				<a href="../index.html" title="缘来在此交友网">缘来在此交友网</a>
+			</div>
+			<!--End top_logo-->
+
+			<!--Start top_main-->
+			<div class="top_main clearfix">
+				<!--Start top_main_nav-->
+				<nav class="top_main_nav clearfix">
+					<label class="top_main_nav_icon hidden-lg pull-right">
+						<span class="glyphicon glyphicon-menu-hamburger"></span>
+					</label>
+					<ul class="clearfix">
+						<li title="会员信息">
+							<a href="queryPeople.html">会员信息</a>
+						</li>
+						<li title="礼物商城">
+							<a href="giftMall.html">礼物商城</a>
+						</li>
+						<li title="博客系统">
+							<a href="personBlog.html">博客系统</a>
+						</li>
+						<li title="个人主页">
+							<a href="personInfo.jsp">个人主页</a>
+						</li>
+					</ul>
+				</nav>
+				<!--End top_main_nav-->
+			</div>
+			<!--End top_main-->
+		</header>
+		<!--End top-->
+
+		<!--Start person_info_container-->
+		<article class="person_info_container container-fluid" style="padding: 0;z-index: 1;">
+			<!--Start person_info_right-->
+			<section id="app" class="person_info_right clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 20px;">
+				<section class="person_info_right_1 container-fluid clearfix">
+					<div class="text-center col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<h3>"{{ name }}"的个人主页</h3>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 15px;">
+						<ul class="nav nav-pills nav-justified">
+							<li v-for="(p, index) in list" :class="{ 'active': i == index }" v-on:click="changeActive(index)">
+								<router-link :to="'/home' + (index + 1)">{{ p.text }}</router-link>
+							</li>
+						</ul>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="container-fluid text-center" id="app1" style="background: transparent;border: 1px solid #ddd; border-radius: 4px;">
+							<!--用于渲染匹配的组件-->
+							<router-view></router-view>
+						</div>
+					</div>
+
+				</section>
+			</section>
+			<!--End person_info_right-->
+		</article>
+		<!--End person_info_container-->
+
+		<!--Start goToBtn-->
+		<div id="goTopBtn" title="回到顶部" style="display: none; left: 1313px;">&and;</div>
+		<!--End goToBtn-->
+
+		<template id="temp1">
+			<div style="padding: 0;padding-top: 15px;" >
+				<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="input-group">
+						<label class="input-group-addon" for="id">ID:</label>
+						<input type="text" id="id" name="id" v-model="personInfo.id" class="form-control" readonly disabled />
+					</div>
+				</div>
+
+				<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="input-group">
+						<label class="input-group-addon" for="nickname">昵称:</label>
+						<input type="text" id="nickname" v-model="personInfo.nickname" name="nickname" class="form-control" readonly disabled/>
+					</div>
+				</div>
+
+				<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="input-group">
+						<label class="input-group-addon" for="phone">电话:</label>
+						<input type="text" id="phone" v-model="personInfo.phone" name="phone" class="form-control" readonly disabled />
+					</div>
+				</div>
+
+				<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="input-group">
+						<label class="input-group-addon" for="sex">性别:</label>
+						<input type="text" id="sex" name="sex" v-model="personInfo.sex" class="form-control" readonly disabled />
+					</div>
+				</div>
+
+				<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="input-group">
+						<label class="input-group-addon" for="job">工作:</label>
+						<input type="text" id="job" v-model="personInfo.job"  name="job" class="form-control" readonly disabled />
+					</div>
+				</div>
+
+				<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="input-group date form_date">
+						<label class="input-group-addon" for="birthday">生日:</label>
+						<input class="form-control"  v-model="personInfo.birthday"  id="birthday" name="birthday" type="text" readonly disabled>
+					</div>
+				</div>
+
+				<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="input-group">
+						<label class="input-group-addon" for="marriage">婚姻状况:</label>
+						<input class="form-control"  v-model="personInfo.marriage"  id="marriage" name="marriage" type="text" readonly disabled>
+					</div>
+				</div>
+
+				<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="input-group">
+						<label class="input-group-addon" for="address">地址:</label>
+						<input type="text" id="address"  v-model="personInfo.address"  name="address" class="form-control" readonly disabled/>
+					</div>
+				</div>
+
+				<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="input-group">
+						<label class="input-group-addon" for="height">身高:</label>
+						<input type="text" id="height"  v-model="personInfo.height"  name="height" class="form-control" readonly disabled/>
+					</div>
+				</div>
+
+				<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<div class="input-group">
+						<label class="input-group-addon" for="salary">收入:</label>
+						<input type="text" id="salary"  v-model="personInfo.salary"  name="salary" class="form-control" readonly disabled />
+					</div>
+				</div>
+
+				<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="input-group">
+						<label class="input-group-addon" for="introduce">个人介绍:</label>
+						<textarea class="form-control" id="introduce"  v-model="personInfo.introduce"  name="introduce" style="resize: none;height: 200px;" readonly disabled>
+
+						</textarea>
+					</div>
+				</div>
+			</div>
+		</template>
+			
+		<template id="temp2">
+			<div style="padding: 0;padding-top: 15px;">
+				<div class="form-group thumbnail article" v-for="(o, index) in blogList">
+					<header class="article_header clearfix">
+						<h3 class="pull-left"><a class="text-success" :href="'personBlog.html?id=' + o.user.id" target="_blank" title="进入博客系统">{{ o.title }}</a></h3>
+						<div class="article_header_info pull-right">
+							<label class="hidden-xs">
+								<span class="glyphicon glyphicon-eye-open"></span>
+								<span>浏览量</span>
+								(<span>{{ o.countView }}</span>)
+							</label>
+							<label class="hidden-xs">
+								<span class="glyphicon glyphicon-comment"></span>
+								<span class="hidden-xs">评论数</span>
+								(<span>{{ o.countForward }}</span>)
+							</label>
+						</div>	
+					</header>
+					
+					<article class="article_simple_content text_overflow1 text-left text-muted">
+						<strong class="text-danger">内容摘要:</strong>
+						{{ o.brief }}
+					</article>
+				</div>
+			</div>	
+		</template>
+		
+		<template id="temp3">
+			<div class="gift_list person_list col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom: 15px;">					
+				<div class="gift person col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="(o, index) in ownerList">
+					<div class="clearfix">
+						<div class="person_logo col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<a :href="'personInfo2.html?id=' + o.id" target="_blank" title="查看用户信息">
+								<img :src="o.imgPath" class="img-responsive" />
+							</a>
+						</div>
+						<div class="caption col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div class="clearfix person_name">
+								<h4 class="text-center">{{ o.nickname }}</h4>
+							</div>
+
+							<p class="text_overflow1 person_info">
+								<span class="text-center" style="display: block;text-indent: 0px;">个人简介</span>
+								{{ o.introduce }}
+							</p>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+		
+		<template id="temp4">
+			<div class="gift_list person_list col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom: 15px;">					
+				<div class="gift person col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="(o, index) in fansList">
+					<div class="clearfix">
+						<div class="person_logo col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<a :href="'personInfo2.html?id=' + o.id" target="_blank" title="查看用户信息">
+								<img :src="o.imgPath" class="img-responsive" />
+							</a>
+						</div>
+						<div class="caption col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<div class="clearfix person_name">
+								<h4 class="text-center">{{ o.nickname }}</h4>
+							</div>
+
+							<p class="text_overflow1 person_info">
+								<span class="text-center" style="display: block;text-indent: 0px;">个人简介</span>
+								{{ o.introduce }}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+		
+	</body>
+
+	<script type="text/javascript" src="../js/jquery-3.0.0.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/tree.js"></script>
+	<script type="text/javascript" src="../js/public.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript" src="../js/vue-router.js"></script>
+	<script type="text/javascript" src="../js/vue-resource.js" ></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			(function(Vue) {
+				
+				/* 创建组件构造器  */
+				
+				// 加载个人信息
+				var Temp1 = Vue.extend({
+					template: '#temp1',
+					data: function(){
+						return {
+							personInfo: []
+						}
+					},
+					created: function(){
+						this.$http({
+							method: "POST",
+							url: "../user/findById.action?id=" + this.queryString("id")
+						}).then((resp) => {
+							this.personInfo = resp.data;
+							
+							if (this.personInfo.sex) {
+								this.personInfo.sex = '男';
+							} else {
+								this.personInfo.sex = '女';
+							}
+						}).catch((resp) => {
+							alert("加载用户信息失败!");
+						})
+					},
+					methods: {
+						queryString: function(name) { 
+							var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
+							var r = window.location.search.substr(1).match(reg); 
+							if (r != null) return unescape(r[2]); return null; 
+						} 
+					}
+				})
+				
+				// 加载博客列表
+				var Temp2 = Vue.extend({
+					template: '#temp2',
+					data: function(){
+						return {
+							blogList: []
+						}
+					},
+					created: function(){
+						this.$http({
+							method: "POST",
+							url: "../forward/showAllForward.action?type=" + "all" + "&userId=" + this.queryString("id")
+						}).then((resp) => {
+							this.blogList = resp.data;
+							for(var i = 0; i < this.blogList.length; i++){
+								if (!this.blogList[i].countForward){
+									this.blogList[i].countForward = 0;
+									console.log(this.blogList[i].countForward);
+								}
+							}
+						}).catch((resp) => {
+							alert("加载博客列表数据失败!");
+						})
+					},
+					methods: {
+						queryString: function(name) { 
+							var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
+							var r = window.location.search.substr(1).match(reg); 
+							if (r != null) return unescape(r[2]); return null; 
+						} 
+					}
+				})
+				
+				// 加载关注列表
+				var Temp3 = Vue.extend({
+					template: '#temp3',
+					data: function(){
+						return {
+							ownerList: []
+						}
+					},
+					created: function(){
+						this.$http({
+							method: "POST",
+							url: "../user/selFllow.action?userId=" + this.queryString("id")
+						}).then((resp) => {
+							this.ownerList = resp.data;
+						}).catch((resp) => {
+							alert("加载用户关注列表失败!");
+						})
+					},
+					methods: {
+						queryString: function(name) { 
+							var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
+							var r = window.location.search.substr(1).match(reg); 
+							if (r != null) return unescape(r[2]); return null; 
+						} 
+					}
+				})
+				
+				// 加载粉丝列表
+				var Temp4 = Vue.extend({
+					template: '#temp4',
+					data: function(){
+						return {
+							fansList: []
+						}
+					},
+					created: function(){
+						this.$http({
+							method: "POST",
+							url: "../user/selFans.action?userId=" + this.queryString("id")
+						}).then((resp) => {
+							this.fansList = resp.data;
+						}).catch((resp) => {
+							alert("加载用户粉丝列表失败!");
+						})
+					},
+					methods: {
+						queryString: function(name) { 
+							var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
+							var r = window.location.search.substr(1).match(reg); 
+							if (r != null) return unescape(r[2]); return null; 
+						} 
+					}
+				})
+				
+				/* 创建路由器  */
+				var router = new VueRouter({
+					routes: [{
+							path: '/',
+							redirect: '/home1'
+						},
+						{
+							path: '/home1',
+							component: Temp1
+						},
+						{
+							path: '/home2',
+							component: Temp2
+						},
+						{
+							path: '/home3',
+							component: Temp3
+						},
+						{
+							path: '/home4',
+							component: Temp4
+						}
+					]
+				})
+
+				new Vue({
+					el: "#app",
+					router: router,
+					data: {
+						list: [{
+								text: "个人信息"
+							},
+							{
+								text: "博客列表"
+							},
+							{
+								text: "关注列表"
+							},
+							{
+								text: "粉丝列表"
+							}
+						],
+						// 选中初始位置
+						i: 0,
+						name: ""
+					},
+					created: function(){
+						this.$http({
+							method: "POST",
+							url: "../user/findById.action?id=" + this.queryString("id")
+						}).then((resp) => {
+							this.name = resp.data.nickname;
+						}).catch((resp) => {
+							alert("加载用户信息失败!");
+						})
+					},
+					methods: {
+						changeActive: function(index) {
+							this.i = index;
+						},
+						queryString: function(name) { 
+							var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
+							var r = window.location.search.substr(1).match(reg); 
+							if (r != null) return unescape(r[2]); return null; 
+						} 
+					}
+				})
+			})(Vue)
+
+		})
+	</script>
+	
+	
+</html>

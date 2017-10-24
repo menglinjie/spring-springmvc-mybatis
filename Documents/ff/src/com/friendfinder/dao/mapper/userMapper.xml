@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	namespace：必须与对应的接口全类名一致
+	id:必须与对应接口的某个对应的方法名一致
+	
+ -->
+<mapper namespace="com.friendfinder.dao.UserDao">
+	<resultMap type="com.friendfinder.model.UserExtension" id="userEx">
+		 <id column="a.id" property="id" />
+		 <result column="a.nickname" property="nickname"/>	
+		 <result column="a.address" property="address" />
+		 <result column="a.height" property="height"/>
+		 <result column="a.salary" property="salary"  />
+		 <result column="a.phone" property="phone" />
+		 <result column="a.introduce" property="introduce" />
+		 <result column="a.sex" property="sex" />
+		 <result column="a.birthday" property="birthday" />
+		 <result column="a.age" property="age" />
+		 <result column="a.marriage" property="marriage"  />
+		 <result column="a.job" property="job" />
+		 <result column="s.charm" property="charm" />
+		 <result column="file_name" property="picture" />
+	</resultMap>
+
+	<!-- mybsits_config中配置类别名,也可直接配置resultType为类路径 -->
+	<insert id="add" >
+		insert into users(password,phone) values(#{password},#{phone})
+	</insert>
+	
+	<update id="update" parameterType="User">
+		<![CDATA[
+		 update users
+		]]>
+		
+		<trim prefix="set" suffixOverrides=",">
+		  	<if test="password != null">
+			password=#{password},
+			</if>
+			<if test="nickname != null">
+			nickname=#{nickname},
+			</if>
+			<if test="address != null">
+			address=#{address},
+			</if>
+			<if test = "marriage != null">
+			marriage=#{marriage},
+			</if>		
+			height=#{height},			
+			salary=#{salary},			
+			<if test = "introduce != null">
+			introduce=#{introduce},
+			</if>
+			<if test = "sex">
+			sex = 1,
+			</if>
+			<if test = "!sex">
+			sex = 0,
+			</if>
+			<if test = "birthday != null">
+			birthday= str_to_date(#{birthday},'%Y-%m-%d'), 
+			</if>
+			<if test = "job != null">
+			job= #{job},
+			</if>
+			<if test = "portrait_id != null">
+			portrait_id= #{portrait_id},
+			</if>
+			<if test = "state != null">
+			state= #{state},
+			</if>
+		</trim>
+		where id = #{id}
+	</update>
+	
+	<update id="delete" parameterType="java.lang.Integer">
+		update users set state = 1 where id = #{id}
+	</update>	
+	
+	<select id="findById" parameterType="java.lang.Integer" resultType="com.friendfinder.model.User">
+		select *
+		from users
+		where id=#{id} and state = 0
+	</select>
+	<select id="findAll" resultType="com.friendfinder.model.User">
+		select *
+		from users
+	</select>
+	<select id="isExict" parameterType="java.lang.Long" resultType="User">
+		select *
+		from users
+		where phone=#{phone}
+	</select>
+	<select id = "isValid" resultType="User">
+		select *
+		from users
+		where state=0 and phone=#{phone} and password=#{password}
+	</select>
+	<select id = "findCondition" parameterType="User">
+		select id,nickname,address,marriage,height,salary,phone,introduce,sex,birthday
+		from users
+		where createTime=#{createTime} and salary=#{salary} and age = #{age} order by create_time,age,salart desc
+	</select>
+	
+	<!-- 查询指定条件 -->
+	<select id="listOrderUser" parameterType="com.friendfinder.model.UserQueryVo" resultMap="userEx"> 
+		select a.id, a.nickname, a.create_time ,a.address ,a.height ,a.salary ,a.phone, a.introduce, a.sex, a.birthday, a.age, a.marriage, a.job, s.charm, (select file_name from attachment where id = a.portrait_id) file_name
+		from users a left join (select u.id idd,q.charm from users u, user_account q where u.id = q.user_id) s
+		on a.id = s.idd
+		<where>
+			and a.state = 0
+			<if test="vo.user.attr2 == 1">
+				and a.sex = 1
+			</if>
+			<if test="vo.user.attr2 == 2">
+				and a.sex = 0
+			</if>
+			<if test="vo.user.attr3 == 1">
+				and a.age &gt;= 18 and a.age &lt; 28
+			</if>
+			<if test="vo.user.attr3 == 2">
+				and a.age &gt;= 28 and a.age &lt; 38
+			</if>
+			<if test="vo.user.attr3 == 3">
+				and a.age &gt;= 38 and a.age &lt; 48
+			</if>
+			<if test="vo.user.attr3 == 4">
+				and a.age &gt;= 48
+			</if>
+			
+			<if test="vo.user.attr4 == 1">
+				and a.salary &lt; 3000
+			</if>
+			<if test="vo.user.attr4 == 2">
+				and a.salary &gt;= 3000 and a.salary &lt; 5000
+			</if>
+			<if test="vo.user.attr4 == 3">
+				and a.salary &gt;= 5000 and a.salary &lt; 7000
+			</if>
+			<if test="vo.user.attr4 == 4">
+				and a.salary &gt;= 7000 and a.salary &lt; 9000
+			</if>
+			<if test="vo.user.attr4 == 5">
+				and a.salary &gt;= 9000
+			</if>
+		</where>
+		<choose>
+			<when test="vo.user.attr1 == 1">
+				order by s.charm desc
+			</when>
+			<when test="vo.user.attr1 == 2">
+				order by a.create_time desc
+			</when>
+		</choose>
+		<if test="vo.page != null">
+			<if test="vo.page.pagePos != null">
+				<if test="vo.page.pageSize != null">
+					limit #{vo.page.pagePos}, #{vo.page.pageSize}
+				</if>
+			</if>
+		</if>
+	</select>
+	
+	<!-- 查询指定条件的个数 -->
+	<select id="countOrderUser" parameterType="com.friendfinder.model.UserQueryVo" resultType="java.lang.Integer"> 
+		select count(*)
+		from users a left join (select u.id idd,q.charm from users u, user_account q where u.id = q.user_id) s
+		on a.id = s.idd
+		<where>
+			a.state = 0
+			<if test="vo.user.attr2 == 1">
+				and a.sex = 1
+			</if>
+			<if test="vo.user.attr2 == 2">
+				and a.sex = 0
+			</if>
+			<if test="vo.user.attr3 == 1">
+				and a.age &gt;= 18 and a.age &lt; 28
+			</if>
+			<if test="vo.user.attr3 == 2">
+				and a.age &gt;= 28 and a.age &lt; 38
+			</if>
+			<if test="vo.user.attr3 == 3">
+				and a.age &gt;= 38 and a.age &lt; 48
+			</if>
+			<if test="vo.user.attr3 == 4">
+				and a.age &gt;= 48
+			</if>
+			
+			<if test="vo.user.attr4 == 1">
+				and a.salary &lt; 3000
+			</if>
+			<if test="vo.user.attr4 == 2">
+				and a.salary &gt;= 3000 and a.salary &lt; 5000
+			</if>
+			<if test="vo.user.attr4 == 3">
+				and a.salary &gt;= 5000 and a.salary &lt; 7000
+			</if>
+			<if test="vo.user.attr4 == 4">
+				and a.salary &gt;= 7000 and a.salary &lt; 9000
+			</if>
+			<if test="vo.user.attr4 == 5">
+				and a.salary &gt;= 9000
+			</if>
+		</where>
+		<choose>
+			<when test="vo.user.attr1 == 1">
+				order by s.charm desc
+			</when>
+			<when test="vo.user.attr1 == 2">
+				order by a.create_time desc
+			</when>
+		</choose>
+	</select>
+
+	<select id="selPartUser" resultType="com.friendfinder.model.UserSynopsis">
+		SELECT id,nickname,portrait_id
+		FROM users u
+		WHERE u.id IN
+		<foreach collection="array" item="id" index="index"
+				 open="(" close=")" separator=",">
+			#{employeeId}
+		</foreach>
+
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	<insert id="insertfans" parameterType="Integer">
+		insert into user_relation_ship (owner,fans)
+		values(#{owner},#{fans})
+	</insert>
+	<delete id="delectfans" parameterType="Integer">
+		delete
+		from user_relation_ship
+		where owner=#{owner} and fans=#{fans}
+	</delete>
+	<select id="selectAllfans" resultType="com.friendfinder.model.UserShip">
+		select id, owner, fans
+		from user_relation_ship
+		<where>
+			<if test="owner != null">
+				owner=#{owner}
+			</if>
+			<if test="fans != null">
+				fans=#{fans}
+			</if>
+		</where> 
+	</select>
+	<select id="selectfans" parameterType="Integer" resultType="Integer">
+		SELECT COUNT(id)
+		FROM user_relation_ship
+		where owner=#{owner} and fans =#{fans}
+	</select>
+	<select id="selectFans" parameterType="Integer" resultType="Integer">
+		SELECT fans
+		FROM user_relation_ship
+		WHERE owner = #{owner}
+	</select>
+	<select id="selectFllow" parameterType="Integer" resultType="Integer">
+		SELECT owner
+		FROM user_relation_ship
+		WHERE fans = #{fans}
+	</select>
+	
+
+	<insert id="insertAccount" parameterType="Integer">
+		insert into user_account (user_id)
+		values(#{userId})
+	</insert>
+	<delete id="deleteAccount" parameterType="Integer">
+		delete
+		from user_account
+		where user_id=#{userId}
+	</delete>
+	<update id="updateAccount" parameterType="UserAccount" >
+		update user_account
+		set charm=#{charm},wealth=#{wealth},point=#{point}
+		where user_id = #{userId}
+	</update>
+	<select id="selectAccount" parameterType="java.lang.Integer" resultType="com.friendfinder.model.UserAccount">
+		select id, charm, wealth, point, user_id as userId
+		from user_account
+		where user_id = #{userId}
+	</select>
+	<select id="selAct" parameterType="Integer" resultType="int">
+		 SELECT COUNT(user_id)
+		 from user_account
+		 WHERE user_id =#{userId};
+	</select>
+	
+	
+
+	<insert id="insertGood" parameterType="Integer">
+		insert into goodsown (id,num,user_id)
+		values(#{id},#{num},#{userId})
+	</insert>
+	<update id="updateGood">
+		update goodsown
+		set num = #{num}
+		where id = #{id} and user_id = #{userId}
+	</update>
+	<delete id="deleteGood">
+		delete from goodsown
+		where id = #{id} and user_id = #{userId}
+	</delete>
+	<select id="selectGoodId" parameterType="Integer" resultType="Integer">
+		select id from goodsown
+		where user_id =#{userId} and num !=0
+	</select>
+	<select id="selectGoodNum" parameterType="Integer" resultType="Integer">
+		select num from goodsown
+		where id=#{id} and user_id=#{userId}
+	</select>
+	<select id="selectGoodsNum" parameterType="Integer" resultType="Integer">
+		select num from goodsown
+		where user_id=#{userId}
+	</select>
+	
+</mapper>

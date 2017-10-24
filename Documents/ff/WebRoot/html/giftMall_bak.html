@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--商品模版-->
+<div class="gift col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <img src="../img/back.jpg" class="img-responsive" />
+        </div>
+        <div class="caption col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="clearfix">
+                <h4 class="pull-left">爱情玫瑰</h4>
+                <div class="text-danger">
+                    <label>￥23.5(魅力值+<span>20</span>)</label>
+                </div>
+            </div>
+
+            <p>
+                <span class="text_overflow1" title="这里写完整的商品的信息">象征着忠贞不渝的爱情，爱情就如玫瑰的颜色一。红玫瑰代表热情真爱、黄玫瑰代表珍重祝福和嫉妒失恋、紫玫瑰代表浪漫真情和珍贵独特、白玫瑰代表纯洁天真、黑玫瑰则代表温柔真心、橘红色玫瑰友情和青春美丽、蓝玫瑰则代表敦厚善良。</span>
+            </p>
+            <button type="button" class="btn btn-info pull-right" onclick="">点击购买</button>
+        </div>
+    </div>
+    <label class="gift_discount">折扣:9.5折</label>
+</div>
+
+
+
+<!--购物车商品模版-->
+<div class="gift " id="gift0">
+    <div class="clearfix">
+        <h4 class="pull-left">爱情玫瑰</h4>
+        <h4 class="pull-right" id="gift_price">单价:23.5元</h4>
+    </div>
+    <div class="input-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <label class="input-group-addon">商品个数:</label>
+        <input type="number" class="form-control" id="gift_num0" value="1" onclick="upd_car()">
+        <span class="input-group-btn">
+							        	<button class="btn btn-default" type="button" onclick="car_remove(0)">
+							        		移除
+							        	</button>
+							     	</span>
+    </div>
+</div>
+<div class="gift ">
+    <div class="clearfix">
+        <h4 class="pull-left">爱情玫瑰</h4>
+        <h4 class="pull-right">单价:23.5元</h4>
+    </div>
+    <div class="input-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <label class="input-group-addon">商品个数:</label>
+        <input type="number" class="form-control">
+        <span class="input-group-btn">
+							        	<button class="btn btn-default" type="button">
+							        		移除
+							        	</button>
+							     	</span>
+    </div>
+</div>
+<div class="gift ">
+    <div class="clearfix">
+        <h4 class="pull-left">爱情玫瑰</h4>
+        <h4 class="pull-right">单价:23.5元</h4>
+    </div>
+    <div class="input-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <label class="input-group-addon">商品个数:</label>
+        <input type="number" class="form-control">
+        <span class="input-group-btn">
+							        	<button class="btn btn-default" type="button">
+							        		移除
+							        	</button>
+							     	</span>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

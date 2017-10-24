@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.friendfinder.dao.ManageDao">
+
+	<resultMap type="com.friendfinder.model.Account" id="userEx">
+		 <id column="u.id" property="id" />
+		 <result column="u.nickname" property="nickname"/>	
+		 <result column="u.address" property="address" />
+		 <result column="u.height" property="height"/>
+		 <result column="u.salary" property="salary"  />
+		 <result column="u.phone" property="phone" />
+		 <result column="u.introduce" property="introduce" />
+		 <result column="u.sex" property="sex" />
+		 <result column="u.birthday" property="birthday" />
+		 <result column="u.age" property="age" />
+		 <result column="u.marriage" property="marriage" />
+		 <result column="u.job" property="job" />
+		 <result column="u.state" property="state" />
+		 <result column="u.create_time" property="createTime" jdbcType="TIMESTAMP" />
+		 <result column="a.charm" property="charm" />
+		 <result column="a.point" property="point" />
+		 <result column="a.wealth" property="wealth" />
+	</resultMap>
+	
+	<resultMap type="com.friendfinder.model.Goods" id="GoodsEx" >
+		<id column="id" property="id" />
+		<result column="state" property="state" />
+		<result column="goods_name" property="name" />
+		<result column="goods_charm" property="charm" />
+		<result column="type" property="type"/>
+		<result column="price0" property="price_rmb" />
+		<result column="price1" property="price_point" />
+		<result column="discount0" property="discount_rmb" />
+		<result column="discount1" property="discount_point" />
+		<result column="message" property="message" />
+		<result column="sales" property="sales" />
+		<result column="file_name" property="img" />
+	</resultMap>
+
+	<select id="selectById" parameterType="java.lang.Integer" resultType="com.friendfinder.model.Manage">
+		select id, name, password
+		from manage
+		where id = #{id}
+	</select>
+	
+	<select id="selectManage" resultType="com.friendfinder.model.Manage">
+		select id, name, password
+		from manage
+		<where>
+			<if test="name != null and name != ''">
+				name = #{name}
+			</if>
+			<if test="password != null and password != ''">
+				and password = #{password}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectAllUser" resultMap="userEx">
+		select u.*, a.*
+		from users u left join user_account a
+		on u.id = a.user_id
+	</select>
+	
+	
+	
+	<select id="selectAllGoods" resultMap="GoodsEx">
+		select g.*, a.* 
+		from goods g, attachment a
+		where g.img = a.id and g.state = 1
+	</select>
+	
+	<select id="selectAllGoodsForManage" resultMap="GoodsEx">
+		select g.*, a.* 
+		from goods g, attachment a
+		where g.img = a.id
+	</select>
+	
+	
+	<update id="updateBlog">
+		<![CDATA[
+		 update post
+		]]>
+		
+		<trim prefix="set" suffixOverrides=",">
+		  	<if test="state != null">
+			state=#{state},
+			</if>
+		</trim>
+		where id = #{id}
+	</update>
+	
+	<update id="updateGoods">
+		<![CDATA[
+		 update goods
+		]]>
+		
+		<trim prefix="set" suffixOverrides=",">
+		  	<if test="state != null">
+			state=#{state},
+			</if>
+			<if test="name != null and name != ''">
+			goods_name=#{name},
+			</if>
+			<if test="charm != null">
+			goods_charm=#{charm},
+			</if>
+			<if test="type != null">
+			type=#{type},
+			</if>
+			<if test="price_rmb != null">
+			price0=#{price_rmb},
+			</if>
+			<if test="price_point != null">
+			price1=#{price_point},
+			</if>
+			<if test="discount_rmb != null">
+			discount0 = #{discount_rmb},
+			</if>
+			<if test="discount_point != null ">
+			discount1=#{discount_point},
+			</if>
+			<if test="message != null and message != ''">
+			message=#{message},
+			</if>
+			<if test="img != null and img != ''">
+			img=#{img},
+			</if>
+		</trim>
+		where id = #{id}
+	</update>
+	
+</mapper>

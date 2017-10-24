@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>后台登录 -- 缘来再此交友网</title>
+		<link type="text/css" rel="stylesheet" href="../css/stylereset.css" />
+		<link rel="stylesheet" href="../css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<style type="text/css">
+			/*覆盖bootstrap原始样式*/		
+			.form-control-feedback {
+				top: 6px;
+				right: 15px;
+			}
+			.login{
+				background-image: url();
+				background-color: #ddd;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- Start container-fluid(登录页面主体) -->
+		<div class="container-fluid login">
+			<!-- Start (遮罩层) -->
+			<div class="mask"></div>
+			<!-- End (遮罩层) -->
+
+			<!-- Start login_box(登录盒子) -->
+			<div class="center login_box col-xs-12 col-sm-12 col-md-5 col-lg-4">
+
+				<!-- Start login_form(登录表单) -->
+				<form class="login_form clearfix thumbnail" id="login_form" action="../manage/isLogin.action" method="post">
+					<h1 class="login_logo">
+						<span>管理员登录</span>
+					</h1>
+					<div class="form-group form-group-lg has-feedback col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="input-group">
+							<label for="username" class="input-group-addon"><span class="glyphicon glyphicon-user"></span></label>
+							<input type="text" class="form-control" id="username" name="username" autocomplete="off" placeholder="请输入用户名" />
+						</div>
+						<span class="glyphicon form-control-feedback"></span>
+					</div>
+
+					<div class="form-group form-group-lg has-feedback col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="input-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<label for="password" class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></label>
+							<input type="password" class="form-control" id="password" name="password" autocomplete="off" placeholder="请输入密码" />
+						</div>
+						<span class="glyphicon form-control-feedback"></span>
+					</div>
+
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<input type="submit" class="btn btn-info btn-lg col-xs-12 col-sm-12 col-md-12 col-lg-12" value="登陆账户" />
+					</div>
+				</form>
+				<!-- End login_form(登录表单) -->
+			</div>
+			<!-- End login_box(登录盒子) -->
+		</div>
+		<!-- End container-fluid(登录页面) -->
+	</body>
+	<script type="text/javascript" src="../js/jquery-3.0.0.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+
+</html>

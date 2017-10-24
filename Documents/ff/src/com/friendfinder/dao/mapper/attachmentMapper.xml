@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.friendfinder.dao.AttachmentDao">
+
+	<insert id="insertAttachment" parameterType="Attachment">
+		insert into
+		attachment(native_name,file_name,file_type)
+		values(#{nativeName},#{fileName},#{fileType})
+	</insert>
+
+	<update id="remove" parameterType="java.lang.Integer">
+		update attachment set
+		state='off' where id=#{attachmentId}
+	</update>
+
+	<update id="updateattachment" parameterType="Attachment">
+		update attachment
+		set
+		native_name=#{nativeName}
+		where
+		id=#{id}
+	</update>
+
+	<select id="selectOne" parameterType="java.lang.Integer"
+		resultType="Attachment">
+		select
+		attachment.id as id,attachment.native_name as
+		nativeName,attachment.file_name as fileName
+		from
+		attachment,users
+		where
+		users.portrait_id=attachment.id
+		and
+		users.id=#{userId}
+		and
+		attachment.state='on'
+	</select>
+
+	<select id="selectAttachment" parameterType="java.lang.Integer"
+		resultType="Attachment">
+		select attachment.id as id,attachment.native_name as
+		nativeName,attachment.file_name as fileName
+		from
+		attachment
+		where
+		id=#{attachmentId}
+	</select>
+	<select id="countattachment" resultType="java.lang.Integer">
+		select count(*) from
+		attachment
+	</select>
+
+
+	<select id="selectFileName" resultType="String">
+		select 	file_name
+		from attachment
+		where id in
+		<foreach collection="array" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<select id="selectLastOne" resultType="com.friendfinder.model.Attachment">
+		select * from attachment 
+		order by id desc, create_time desc 
+		limit 1
+	</select>
+
+</mapper>

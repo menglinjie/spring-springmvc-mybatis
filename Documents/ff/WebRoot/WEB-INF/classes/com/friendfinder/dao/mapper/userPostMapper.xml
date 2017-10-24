@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.friendfinder.dao.UserPostDao">
+
+	<insert id="insert" parameterType="UserPost">
+		insert into
+		user_post(owner_id,post_id)
+		values(#{user.id},#{post.id})
+	</insert>
+
+	<select id="selectPost" resultMap="postMap">
+		SELECT
+		post.*,users.nickname,post.write_time as writeTime,post.count_view as countView,post.count_forward as countForward,
+		post.creator_id as creatorId,post.parent_id as parentId
+		FROM
+		user_post
+		LEFT JOIN post ON
+		user_post.post_id = post.id
+		LEFT JOIN users ON
+		user_post.owner_id=users.id
+		WHERE user_post.owner_id=#{userId}
+		and
+		post.state='on'
+		and
+		post.type='article'
+		<choose>
+			<when test="type.toString().equals('me')">
+				and post.creator_id=users.id
+			</when>
+			<when test="type.toString().equals('others')">
+				and post.creator_id !=users.id
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+		order by post.write_time DESC
+	</select>
+	<resultMap type="Post" id="postMap">
+		<association property="user" column="creator_id"
+			select="com.friendfinder.dao.UserDao.findById"></association>
+		<collection property="comments" column="parent_id" ofType="Post"
+			select="com.friendfinder.dao.PostDao.selectpostBypostId">
+		</collection>
+	</resultMap>
+	
+	
+	<select id="selectAllPost" resultMap="postMap">
+		SELECT
+		post.id,post.title,post.state,post.write_time as writeTime,post.creator_id as creatorId
+		FROM
+		post
+		where 
+		post.type='article'
+		order by post.write_time DESC
+	</select>
+
+	<select id="countForward" resultType="java.lang.Integer">
+
+		SELECT
+		count(*)
+		FROM
+		user_post
+		LEFT JOIN post ON user_post.post_id = post.id
+		WHERE
+		user_post.owner_id != post.creator_id
+		AND user_post.post_id = #{postId}
+		and post.state='on'
+	</select>
+</mapper>

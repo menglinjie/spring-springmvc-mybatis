@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义弹出框</title>
+		<link type="text/css" rel="stylesheet" href="../css/stylereset.css" />
+		<link rel="stylesheet" href="../css/bootstrap.css" />
+		<link rel="stylesheet" href="../css/alert.css" />
+		<script type="text/javascript" src="../js/jquery-3.0.0.min.js" ></script>
+		<script type="text/javascript" src="../js/bootstrap.js" ></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(".btn_close").click(closeWindow);
+				$(".btn_yes").click(closeWindow);
+				$(".btn_no").click(closeWindow);
+
+				function closeWindow() {
+					$(".user_defined_alert_window").hide();
+					$(".full_window").hide();
+				}
+
+				var temp = $(document.body).height();
+				$(".btn_show").click(function() {
+					$(".full_window").show();
+					$(".user_defined_alert_window").show();
+				});
+			});
+			
+		</script>
+	</head>
+	<body>
+		<button class="btn_show">显示弹窗</button>
+		<div class="full_window"></div>
+		<div class="user_defined_alert_window clearfix">	
+			<div class="alert_window">
+				<header class="alert_window_header clearfix">
+					<label class="header_text">系统警告</label>
+					<button class="btn_close pull-right">&times;</button>
+				</header>
+				<article class="alert_window_content">
+					<p>系统检测到你浏览器版本过低，为了更好的浏览体验，请升级你的浏览器！</p>
+				</article>
+				<footer class="alert_window_footer">
+					<button class="alert_btn btn_yes active">知道了</button>
+					<button class="alert_btn btn_no">取消</button>
+				</footer>
+			</div>
+		</div>
+	</body>
+</html>

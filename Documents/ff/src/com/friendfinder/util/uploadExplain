@@ -1,0 +1,25 @@
+UploadFileUtil.java为封装的工具代码
+	注意：
+		0)使用upload()方法时，返回值为true表示上传成功，为false表示上传失败。
+
+		1)若上传成功，可以通过getNewFileName()来获取新文件名，直接将其存入数据库中即可。
+		
+		局部示例代码：
+			UploadFileUtil up = new UploadFileUtil();
+			if(up.upload(file)) {
+				up.getNewFileName();
+			}
+
+
+		2)当使用upload()方法上传文件后可调用
+		getAllPathName()方法，来获取上传文
+		件的全路径。
+
+		3)使用getAllPathName(String Name)方法，
+		可以拿到文件的全路径（建议使用场景：从数据库中拿到文件名后，使用此方法拿到全路径，然后直接返回给前端）。
+
+		4)由于此种连接开销较大，建议尽量减少实例化此对象的次数。
+
+
+正常情况下，若上传成功，拿到新文件名，访问下面网址即可看到：
+	http://139.199.16.239:8080/demo/image/新文件名

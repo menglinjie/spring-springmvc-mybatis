@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	namespace：必须与对应的接口全类名一致
+	id:必须与对应接口的某个对应的方法名一致
+	
+ -->
+<mapper namespace="com.friendfinder.dao.GiftDao">
+
+	<!-- mybsits_config中配置类别名,也可直接配置resultType为类路径 -->
+	<insert id="insertGift" parameterType="Gift">
+		insert into giftstore_d(id,name,type,message,price-rmb,price-point,discount,sales) values(#{giftId},#{giftName},#{giftType},#{giftMessage},#{giftPriceRMB},#{giftPricePoint},#{giftDiscount},#{giftSales})
+	</insert>
+	
+	<delete id="deleteGift" parameterType="int">
+		delete from giftstore_d where id=#{giftId}
+	</delete>
+	
+	<update id="updateGift" parameterType="Gift">
+		update giftstore_d set name=#{giftId} ,type=#{giftType},message=#{giftMessage},price-rmb=#{giftPriceRMB},price-point=#{giftPricePoint},discount=#{giftDiscount},sales=#{giftSales} where id=#{giftId}
+	</update>
+	
+	
+	  
+	<select id="selectAllGifts" resultType="Gift">
+		select id,name,type,message,price-rmb,price-point,discount,sales from giftstore_d 
+	</select>
+	
+	<select id="selectGiftByGiftId" parameterType="int" resultType="Gift">
+		select id,name,type,message,price-rmb,price-point,discount,sales from giftstore_d where id=#{giftId}
+	</select>
+	
+	<select id="selectAllGiftsUserOwns" parameterType="int" resultType="GiftOwn">
+		select userid,giftid,giftcount from giftown_d where userid=#{userid}
+	</select>
+	
+	<select id="selectGiftsSendByUser" parameterType="int" resultType="GiftSend">
+		select giftfrom,giftto,giftid,giftsendtime,giftsendmessage from giftsend_d where giftfrom=#{userid}
+	</select>
+	
+	
+	
+	
+</mapper>

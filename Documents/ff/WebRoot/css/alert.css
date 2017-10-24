@@ -1,0 +1,102 @@
+@charset "utf-8";
+.user_defined_alert_window {
+  display: none;
+}
+/*定义默认弹出框背景色*/
+.full_window {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  opacity: 0.55;
+  filter: alpha(opacity=55);
+  /*兼容IE8及以下*/
+  background-color: #000;
+  z-index: 99;
+}
+/*定制弹出框框内背景颜色*/
+.alert_window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  z-index: 999;
+  color: #333;
+  border: 1px solid #eee;
+  box-sizing: border-box;
+}
+.alert_window .alert_window_header {
+  padding: 10px 25px;
+}
+.alert_window .alert_window_header .header_text {
+  font-size: 20px;
+  font-weight: normal!important;
+  margin: 0!important;
+}
+.alert_window .alert_window_header .btn_close {
+  font-weight: normal!important;
+  color: #A2A2A2;
+  font-size: 20px;
+  margin: 0!important;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+.alert_window .alert_window_header .btn_close:hover {
+  cursor: pointer;
+  color: #2B75D6;
+}
+.alert_window .alert_window_content {
+  box-sizing: border-box;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 24px 45px;
+}
+.alert_window .alert_window_content p {
+  font-size: 14px;
+  color: #666;
+  margin: 0!important;
+}
+.alert_window .alert_window_content label {
+  /*覆盖bootstrap样式*/
+  text-align: center!important;
+}
+.alert_window .alert_window_footer {
+  background-color: #F0F4F7;
+  padding: 12px 0;
+  text-align: center;
+}
+.alert_window .alert_window_footer .alert_btn {
+  width: 25%;
+  height: 35px;
+  outline: none;
+  background-color: transparent;
+  border: 1px solid #2B75D6;
+  box-sizing: border-box;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  color: #2B75D6;
+  background-color: #fff;
+  text-align: center;
+  /*小技巧 : 如何实现内阴影?*/
+}
+.alert_window .alert_window_footer .alert_btn:hover {
+  box-shadow: inset 0 0 9999px rgba(102, 102, 102, 0.16);
+}
+.alert_window .alert_window_footer .btn_yes {
+  margin-right: 5%;
+}
+.alert_window .alert_window_footer .btn_no {
+  margin-left: 5%;
+}
+.alert_window .alert_window_footer .active {
+  color: #fff;
+  background-color: #2B75D6;
+}
